@@ -81,3 +81,8 @@ label = "Automatic (Wayland when available)"
 
 [input]
 keyboard_option = "mnk_mode"
+
+# Cover art from the LaunchBox Games Database, shown in Charge.
+[art]
+launchbox_id = 31607
+front = "7d174bda-3f59-4717-b763-16805e8801f2.png"
