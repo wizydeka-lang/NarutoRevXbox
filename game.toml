@@ -1,0 +1,82 @@
+# How Charge (https://github.com/shah00-croco/charge-game-launcher) finds,
+# checks and starts this recompilation. Add it in Charge with this file and the
+# folder the project was built in.
+schema = 1
+
+[game]
+id = "naruto-storm-revolution"
+title = "Naruto Shippuden: Ultimate Ninja Storm Revolution"
+source_platform = "xbox360"
+recompiler = "rexglue"
+runtime_profile = "rexglue@1"
+project_url = "https://github.com/wizydeka-lang/NarutoRevXbox"
+description = "Native PC recompilation with ReXGlue. Bring your own game files."
+
+# Supplied by the user from their own copy of the game.
+[data]
+pick = "Default.xex"
+root = "{picked_dir}"
+# Players can import from their own disc image instead of an extracted folder.
+image = "xdvdfs"
+
+[[data.file]]
+path = "Default.xex"
+sha256 = ["b9fd8ac231a96560db2b54340880f2c3d7e8d4cd4cfa1153112077f2fa8af777"]
+label = "the version the function boundaries were made from"
+
+[[data.file]]
+path = "data/disc/adx2.cpk"
+[[data.file]]
+path = "data/disc/movie.cpk"
+[[data.file]]
+path = "data/sim/data.cpk"
+[[data.file]]
+path = "data/sim/dataRegion.cpk"
+[[data.file]]
+path = "data/sim/sound.cpk"
+[[data.file]]
+path = "data/sim/stage.cpk"
+
+[executable]
+linux = "naruto_revolution"
+# Relative to this file's folder: a release zip, then local builds.
+search = [".", "out/build/linux-amd64-release", "out/build/linux-amd64-debug"]
+
+[[option]]
+id = "renderer"
+label = "Renderer"
+help = "The native Vulkan renderer needs the shader cache from tools/build-shaders.py in out/shaders/."
+category = "graphics"
+type = "choice"
+default = "xenos"
+
+[option.choices.xenos]
+label = "Emulated (Xenos)"
+
+[option.choices.native]
+label = "Native Vulkan view (alongside Xenos)"
+env = { REVOLUTION_NATIVE_VIEW = "1", REVOLUTION_OUT_DIR = "{data_root}/../out" }
+
+[option.choices.native_only]
+label = "Native Vulkan only (faster, experimental)"
+args = ["--vulkan_skip_rendering=true"]
+env = { REVOLUTION_NATIVE_VIEW = "1", REVOLUTION_NATIVE_VIEW_ONLY = "1", REVOLUTION_OUT_DIR = "{data_root}/../out" }
+
+[[option]]
+id = "video_driver"
+label = "Window system"
+help = "X11 (through XWayland) is what the game has been tested with."
+category = "display"
+type = "choice"
+default = "x11"
+platforms = ["linux"]
+
+[option.choices.x11]
+label = "X11"
+env = { SDL_VIDEO_DRIVER = "x11" }
+
+[option.choices.auto]
+label = "Automatic (Wayland when available)"
+
+[input]
+keyboard_option = "mnk_mode"

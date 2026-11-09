@@ -43,6 +43,21 @@ Pass game options after `--`. Logs are under
 `out/build/linux-amd64-release/logs/`. Do not remove `/dev/shm/xenia_memory_*`
 files while a game is running.
 
+### With Charge
+
+[Charge](https://github.com/shah00-croco/charge-game-launcher) can check your
+game files and start the game with its own settings, GPU choice and logs. After
+building, choose **Add a game** in Charge, pick this folder's `game.toml`, then
+this folder, then your `assets/Default.xex`. From a terminal:
+
+```sh
+charge add game.toml --install . --game-file assets/Default.xex
+charge play naruto-storm-revolution
+```
+
+The build copies `librexruntime.so` next to the executable, so no
+`LD_LIBRARY_PATH` is needed.
+
 See `.claude/skills/rexglue-native-render/SKILL.md` for project rules and the
 Storm 3 reference. Revolution function addresses must be verified independently.
 

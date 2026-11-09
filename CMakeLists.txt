@@ -34,6 +34,13 @@ endif()
 
 rexglue_setup_target(naruto_revolution GPU_PLUGINS xenos)
 
+# Put the SDK runtime next to the executable, which finds it through its
+# $ORIGIN runpath, so the game starts without LD_LIBRARY_PATH (as from Charge).
+add_custom_command(TARGET naruto_revolution POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        "$<TARGET_FILE:rex::runtime>" "$<TARGET_FILE_DIR:naruto_revolution>"
+    VERBATIM)
+
 if(NOT EXISTS "${CMAKE_CURRENT_BINARY_DIR}/naruto_revolution.toml")
     configure_file(config/naruto_revolution-performance.toml
         "${CMAKE_CURRENT_BINARY_DIR}/naruto_revolution.toml" COPYONLY)
