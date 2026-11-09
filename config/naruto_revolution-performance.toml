@@ -1,0 +1,16 @@
+# Baseline Xenos renderer settings; game rendering still needs verification.
+log_level = "info"
+log_flush_interval = 1
+log_max_file_size_mb = 8
+log_max_files = 2
+log_noisy = false
+async_shader_compilation = true
+gpu_debug_markers = false
+vulkan_validation_enabled = false
+draw_resolution_scale_x = 1
+draw_resolution_scale_y = 1
+vsync = true
+execute_unclipped_draw_vs_on_cpu = true
+vulkan_allow_present_mode_immediate = false
+vulkan_allow_present_mode_mailbox = false
+vulkan_allow_present_mode_fifo_relaxed = false

@@ -1,0 +1,46 @@
+{
+  "version": 6,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 25,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "linux-base",
+      "hidden": true,
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/out/build/${presetName}",
+      "cacheVariables": {
+        "CMAKE_CXX_COMPILER": "clang++-20",
+        "CMAKE_PREFIX_PATH": "$env{HOME}/rexglue-sdk/out/install/linux-amd64"
+      }
+    },
+    {
+      "name": "linux-amd64-release",
+      "inherits": "linux-base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      }
+    },
+    {
+      "name": "linux-amd64-debug",
+      "inherits": "linux-base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "linux-amd64-release",
+      "configurePreset": "linux-amd64-release",
+      "jobs": 4
+    },
+    {
+      "name": "linux-amd64-debug",
+      "configurePreset": "linux-amd64-debug",
+      "jobs": 4
+    }
+  ]
+}
