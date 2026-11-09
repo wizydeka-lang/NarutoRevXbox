@@ -39,13 +39,14 @@ path = "data/sim/stage.cpk"
 
 [executable]
 linux = "naruto_revolution"
-# Relative to this file's folder: a release zip, then local builds.
-search = [".", "out/build/linux-amd64-release", "out/build/linux-amd64-debug"]
+# Relative to this file's folder. Release zips keep the same layout as a
+# local build, so out/shaders/ (the native renderer's cache) is {exe_dir}/../..
+search = ["out/build/linux-amd64-release", "out/build/linux-amd64-debug"]
 
 [[option]]
 id = "renderer"
 label = "Renderer"
-help = "The native Vulkan renderer needs the shader cache from tools/build-shaders.py in out/shaders/."
+help = "The native Vulkan renderer uses the shader cache in out/shaders/ (included in releases; tools/build-shaders.py makes it for a local build)."
 category = "graphics"
 type = "choice"
 default = "xenos"
@@ -55,12 +56,12 @@ label = "Emulated (Xenos)"
 
 [option.choices.native]
 label = "Native Vulkan view (alongside Xenos)"
-env = { REVOLUTION_NATIVE_VIEW = "1", REVOLUTION_OUT_DIR = "{data_root}/../out" }
+env = { REVOLUTION_NATIVE_VIEW = "1", REVOLUTION_OUT_DIR = "{exe_dir}/../.." }
 
 [option.choices.native_only]
 label = "Native Vulkan only (faster, experimental)"
 args = ["--vulkan_skip_rendering=true"]
-env = { REVOLUTION_NATIVE_VIEW = "1", REVOLUTION_NATIVE_VIEW_ONLY = "1", REVOLUTION_OUT_DIR = "{data_root}/../out" }
+env = { REVOLUTION_NATIVE_VIEW = "1", REVOLUTION_NATIVE_VIEW_ONLY = "1", REVOLUTION_OUT_DIR = "{exe_dir}/../.." }
 
 [[option]]
 id = "video_driver"
